@@ -1,0 +1,136 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+}
+
+/* MAIN COVER */
+.cover{
+  height: 96vh;
+  width: 90vw;
+  background-color: #a1a1a1;
+  border-radius: 5px;
+  position: absolute;
+  top: 2vh;
+  left: 5vw;
+}
+
+
+/* SUBCOVERS */
+
+.space{
+  height: 90vh;
+  width: 59vw;
+  background-color: #000000;
+  border-radius: 5px;
+  position: relative;
+  top: 3vh;
+  left: 2vw;
+  overflow: hidden;
+}
+
+.stats{
+  height: 90vh;
+  width: 26vw;
+  background-color: #000018;
+  border-radius: 5px;
+  position: absolute;
+  top: 3vh;
+  left: 62vw;
+  user-select: none;
+}
+
+
+
+/* INNER COVERS */
+
+.score{
+  height: 35vh;
+  width: 22vw;
+  background-color: blue;
+  border-radius: 5px;
+  position: relative;
+  top: 4vh;
+  left: 2vw;
+  text-align: center;
+  font-size: 28vh;
+}
+
+
+/* ITEMS */
+
+.rocks{
+  position: absolute;
+  top: 0;
+  left: 5;
+  width: 5vw;
+  height: 7vh;
+  border-radius: 45%;
+  background-color: #350000;
+}
+
+.shooter{
+  height: 4vh;
+  width: 6vw;
+  background-color: blue;
+  border-radius: 5px;
+  transition: all linear;
+}
+
+.bullets{
+  padding: 1vh;
+  height: 2vh;
+  background-color: gold;
+  border-radius: 40%;
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
+}
+
+.info{
+  position: relative;
+  top: 8vh;
+  left: 2vw;
+  height: 19vh;
+  width: 22vw;
+  background-color: blue;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 8vh;
+  font-weight: 800;
+  text-align: center;
+  padding: 8vh 0 0 0;
+  word-spacing: -1vw;
+  text-align: center;
+  transition: .3s ease;
+}
+
+.again{
+  position: relative;
+  top: 12vh;
+  left: 2vw;
+  height: 12vh;
+  width: 22vw;
+  border: 1px solid black;
+  font-size: 3vh;
+  font-weight: 800;
+  text-align: center;
+  background-color: blue;
+  border-radius: 5px;
+  transition: .3s ease;
+}
+
+.again:hover{
+  background-color: #1717ff;
+}
+.again:focus{
+  outline: 3px solid #8d0000;
+  color: white;
+}
+
+
+
+.disable{
+  pointer-events: none;
+  opacity: 0.2;
+}
