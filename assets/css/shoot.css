@@ -4,11 +4,15 @@
   font-family: monospace;
 }
 
+body {
+  background: black;
+}
+
 /* MAIN COVER */
 .cover{
   height: 96vh;
   width: 90vw;
-  background-color: #a1a1a1;
+  background-color: #a1a1a136;
   border-radius: 5px;
   position: absolute;
   top: 2vh;
