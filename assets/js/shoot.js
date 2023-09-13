@@ -11,7 +11,7 @@ let bulletMover = 5;
 
 window.addEventListener('load', ()=>{
   shooter.style.position = 'relative';
-  shooter.style.top = 678;
+  shooter.style.top = 638; //678
   shooter.style.left = 5;
 });
 

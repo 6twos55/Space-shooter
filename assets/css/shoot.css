@@ -1,11 +1,13 @@
 *{
   margin: 0;
   padding: 0;
-  font-family: monospace;
+  font-family: sans-serif;
 }
 
 body {
-  background: black;
+  /* background: url('../pics/space2.jpg') no-repeat;
+  background-size: cover; */
+  background-color: rgb(9, 0, 77);
 }
 
 /* MAIN COVER */
@@ -25,7 +27,8 @@ body {
 .space{
   height: 90vh;
   width: 59vw;
-  background-color: #000000;
+  background: url('../pics/space2.jpg') no-repeat;
+  background-size: cover;
   border-radius: 5px;
   position: relative;
   top: 3vh;
@@ -60,7 +63,6 @@ body {
   font-size: 28vh;
 }
 
-
 /* ITEMS */
 
 .rocks{
@@ -70,11 +72,13 @@ body {
   width: 5vw;
   height: 7vh;
   border-radius: 45%;
+  background: url(../pics/rock1.jpg);
+  background-size: cover;
   background-color: #350000;
 }
 
 .shooter{
-  height: 4vh;
+  height: 8vh;
   width: 6vw;
   background-color: blue;
   border-radius: 5px;
@@ -100,11 +104,10 @@ body {
   background-color: blue;
   border: 1px solid black;
   border-radius: 5px;
-  font-size: 8vh;
+  font-size: 45px;
   font-weight: 800;
   text-align: center;
   padding: 8vh 0 0 0;
-  word-spacing: -1vw;
   text-align: center;
   transition: .3s ease;
 }
