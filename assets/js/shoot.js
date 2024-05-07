@@ -11,7 +11,7 @@ let bulletMover = 5;
 
 window.addEventListener('load', ()=>{
   shooter.style.position = 'relative';
-  shooter.style.top = 638; //678
+  shooter.style.top = 590; //678
   shooter.style.left = 5;
 });
 
@@ -36,7 +36,6 @@ window.addEventListener('keydown', (e)=>{
       space.appendChild(bullet);
 
       let moveBullet = setInterval(()=>{
-
         let rocks = document.querySelectorAll('.rocks');
 
         for(let i = 0; i < rocks.length; i++){
@@ -61,18 +60,17 @@ window.addEventListener('keydown', (e)=>{
           }
         }
 
-
         let bulletbottom = parseInt(
           window.getComputedStyle(bullet).getPropertyValue('bottom')
         );
 
 
-        if(bulletbottom >= 670){
+        if(bulletbottom >= 750){
           bullet.parentElement.removeChild(bullet);
         }
 
 
-        bullet.style.left = 40 + left + 'px';
+        bullet.style.left = 42 + left + 'px';
         bullet.style.bottom = bulletbottom + bulletMover + 'px';
       }, 1);
       break;

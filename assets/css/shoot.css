@@ -27,7 +27,7 @@ body {
 .space{
   height: 90vh;
   width: 59vw;
-  background: url('../pics/space2.jpg') no-repeat;
+  background: url('../pics/space.jpg') no-repeat;
   background-size: cover;
   border-radius: 5px;
   position: relative;
@@ -39,7 +39,8 @@ body {
 .stats{
   height: 90vh;
   width: 26vw;
-  background-color: #000018;
+  background: url(../pics/space.jpg);
+  background-size: cover;
   border-radius: 5px;
   position: absolute;
   top: 3vh;
@@ -67,30 +68,29 @@ body {
 
 .rocks{
   position: absolute;
-  top: 0;
+  top: -50;
   left: 5;
   width: 5vw;
   height: 7vh;
-  border-radius: 45%;
-  background: url(../pics/rock1.jpg);
+  background: url(../pics/rock.png);
   background-size: cover;
-  background-color: #350000;
+  transition: all ease 1.5s;
 }
 
 .shooter{
-  height: 8vh;
+  height: 12vh;
   width: 6vw;
-  background-color: blue;
-  border-radius: 5px;
+  background: url(../pics/rock.png);
   transition: all linear;
 }
 
 .bullets{
-  padding: 1vh;
-  height: 2vh;
-  background-color: gold;
-  border-radius: 40%;
+  height: 5vh;
+  width: 10px;
+  background: url(../pics/rock.png);
   position: absolute;
+  background-color: rgb(188, 137, 8);
+  border-radius: 20px 20px 0 0;
   left: 40px;
   bottom: 40px;
 }
