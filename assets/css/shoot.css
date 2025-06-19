@@ -1,143 +1,144 @@
-*{
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
+
+* {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Orbitron", sans-serif;
 }
 
 body {
-  /* background: url('../pics/space2.jpg') no-repeat;
-  background-size: cover; */
-  background-color: rgb(9, 0, 77);
-}
-
-/* MAIN COVER */
-.cover{
-  height: 96vh;
-  width: 90vw;
-  background-color: #a1a1a136;
-  border-radius: 5px;
-  position: absolute;
-  top: 2vh;
-  left: 5vw;
-}
-
-
-/* SUBCOVERS */
-
-.space{
-  height: 90vh;
-  width: 59vw;
-  background: url('../pics/space.jpg') no-repeat;
-  background-size: cover;
-  border-radius: 5px;
-  position: relative;
-  top: 3vh;
-  left: 2vw;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
 }
 
-.stats{
-  height: 90vh;
-  width: 26vw;
-  background: url(../pics/space.jpg);
+/* MAIN COVER */
+.cover {
+  background: url("../pics/space.jpg") no-repeat center center fixed;
   background-size: cover;
-  border-radius: 5px;
-  position: absolute;
-  top: 3vh;
-  left: 62vw;
-  user-select: none;
+  height: 100vh;
+  width: 100%;
+  display: flex;
 }
 
+/* SUBCOVERS */
 
-
-/* INNER COVERS */
-
-.score{
-  height: 35vh;
-  width: 22vw;
-  background-color: blue;
-  border-radius: 5px;
+.space {
+  height: 100%;
+  width: 75%;
+  background: none;
   position: relative;
-  top: 4vh;
-  left: 2vw;
-  text-align: center;
-  font-size: 28vh;
+
+  /* ITEMS */
+  .rocks {
+    position: absolute;
+    top: -50;
+    left: 5;
+    width: 5vw;
+    height: 7vh;
+    background: url(../pics/rock.png);
+    background-size: cover;
+    transition: all ease 1.5s;
+
+    &.hit {
+      animation: fadeOut 0.3s ease-out forwards;
+      pointer-events: none;
+    }
+  }
+
+  .shooter {
+    height: 10vh;
+    width: 5vw;
+    position: absolute;
+    bottom: 5vh;
+  }
+
+  .bullets {
+    height: 7vh;
+    width: 2.5vw;
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+  }
 }
 
-/* ITEMS */
+.stats {
+  height: 100%;
+  width: 25%;
+  background: rgba(0, 0, 0, 0.5);
 
-.rocks{
-  position: absolute;
-  top: -50;
-  left: 5;
-  width: 5vw;
-  height: 7vh;
-  background: url(../pics/rock.png);
-  background-size: cover;
-  transition: all ease 1.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  .score {
+    height: 40%;
+    width: 80%;
+    background-color: #b1b1ff;
+    border-radius: 15px;
+    font-size: 20vh;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .info {
+    height: 25%;
+    width: 80%;
+    background-color: #b1b1ff;
+    border-radius: 15px;
+    font-size: 5vh;
+    font-weight: 800;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .again {
+    height: 15%;
+    width: 80%;
+    background-color: #b1b1ff;
+    border-radius: 15px;
+    font-size: 3vh;
+    font-weight: 800;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    cursor: pointer;
+
+    .timer {
+      font-size: inherit;
+      font-weight: inherit;
+    }
+  }
+
+  .again:hover {
+    background-color: #7c7cfc;
+  }
 }
 
-.shooter{
-  height: 12vh;
-  width: 6vw;
-  background: url(../pics/rock.png);
-  transition: all linear;
-}
-
-.bullets{
-  height: 5vh;
-  width: 10px;
-  background: url(../pics/rock.png);
-  position: absolute;
-  background-color: rgb(188, 137, 8);
-  border-radius: 20px 20px 0 0;
-  left: 40px;
-  bottom: 40px;
-}
-
-.info{
-  position: relative;
-  top: 8vh;
-  left: 2vw;
-  height: 19vh;
-  width: 22vw;
-  background-color: blue;
-  border: 1px solid black;
-  border-radius: 5px;
-  font-size: 45px;
-  font-weight: 800;
-  text-align: center;
-  padding: 8vh 0 0 0;
-  text-align: center;
-  transition: .3s ease;
-}
-
-.again{
-  position: relative;
-  top: 12vh;
-  left: 2vw;
-  height: 12vh;
-  width: 22vw;
-  border: 1px solid black;
-  font-size: 3vh;
-  font-weight: 800;
-  text-align: center;
-  background-color: blue;
-  border-radius: 5px;
-  transition: .3s ease;
-}
-
-.again:hover{
-  background-color: #1717ff;
-}
-.again:focus{
-  outline: 3px solid #8d0000;
-  color: white;
-}
-
-
-
-.disable{
+.disable {
   pointer-events: none;
   opacity: 0.2;
+}
+
+/* Add these with your other animations */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.2);
+  }
 }

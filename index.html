@@ -1,39 +1,33 @@
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/css/shoot.css">
-  <title>Space Shooter</title>
-</head>
-<body>
-  
-  <div class="cover">
-    
-    <div class="space">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/shoot.css" />
+    <title>Space Shooter</title>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="space">
+        <div class="rocks"></div>
+        <!-- <img src="./assets/pics/bullet.png" style="height: 10vh; width: 4vh" alt="" id="bullets"> -->
 
-      <div class="rocks">
-      </div>
-      <!-- <img src="./assets/pics/bullet.png" style="height: 10vh; width: 4vh" alt="" id="bullets"> -->
-
-      <img class="shooter" src="./assets/pics/jet.png" alt="shooter" />
-    </div>
-
-
-    <div class="stats">
-
-      <div class="score">
-        <span class="count">0</span>
+        <img class="shooter" src="./assets/pics/jet.png" alt="shooter" />
       </div>
 
-      <div class="info" onclick="document.location.reload()">Restart</div>
+      <div class="stats">
+        <div class="score">
+          <span class="count">0</span>
+        </div>
 
-      <button class="again">TRY AGAIN</button>
+        <div class="info" onclick="document.location.reload()">RESTART</div>
 
+        <div class="again">
+          <span class="timer">Time: 0s</span>
+        </div>
+      </div>
     </div>
 
-  </div>
-
-  <script src="./assets/js/shoot.js"></script>
-</body>
+    <script src="./assets/js/shoot.js"></script>
+  </body>
 </html>
