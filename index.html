@@ -10,7 +10,6 @@
     <div class="cover">
       <div class="space">
         <div class="rocks"></div>
-        <!-- <img src="./assets/pics/bullet.png" style="height: 10vh; width: 4vh" alt="" id="bullets"> -->
 
         <img class="shooter" src="./assets/pics/jet.png" alt="shooter" />
       </div>
@@ -20,10 +19,20 @@
           <span class="count">0</span>
         </div>
 
-        <div class="info" onclick="document.location.reload()">RESTART</div>
+        <div class="info">RESTART</div>
 
         <div class="again">
-          <span class="timer">Time: 0s</span>
+          <span class="timer">Time: 0:00</span>
+        </div>
+
+        <div class="highscores-btn">High Scores</div>
+
+        <div class="highscores-popup" style="display: none">
+          <div class="highscores-content">
+            <span class="close">&times;</span>
+            <h2>Top 10 High Scores</h2>
+            <ol class="highscores-list"></ol>
+          </div>
         </div>
       </div>
     </div>

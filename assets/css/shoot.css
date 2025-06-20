@@ -28,6 +28,10 @@ body {
   width: 75%;
   background: none;
   position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  cursor: none;
 
   /* ITEMS */
   .rocks {
@@ -71,24 +75,25 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 3vh;
 
   .score {
-    height: 40%;
-    width: 80%;
+    height: 37%;
+    width: 85%;
     background-color: #b1b1ff;
     border-radius: 15px;
-    font-size: 20vh;
+    font-size: 19vh;
     font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
+    user-select: none;
   }
 
   .info {
     height: 25%;
-    width: 80%;
+    width: 85%;
     background-color: #b1b1ff;
     border-radius: 15px;
     font-size: 5vh;
@@ -98,12 +103,11 @@ body {
     align-items: center;
     justify-content: center;
     padding: 10px;
-    cursor: pointer;
   }
 
   .again {
-    height: 15%;
-    width: 80%;
+    height: 10%;
+    width: 85%;
     background-color: #b1b1ff;
     border-radius: 15px;
     font-size: 3vh;
@@ -123,6 +127,106 @@ body {
 
   .again:hover {
     background-color: #7c7cfc;
+  }
+
+  .highscores-btn {
+    width: 85%;
+    background: #7c7cfc;
+    color: #222;
+    font-size: 2.5vh;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .highscores-btn:hover {
+    background: #b1b1ff;
+  }
+
+  .highscores-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  .highscores-content {
+    background: #cfc9dc;
+    border-radius: 15px;
+    padding: 24px 18px;
+    width: 90vw;
+    max-width: 400px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+  }
+  .highscores-content h2 {
+    margin-bottom: 30px;
+    margin-top: 12px;
+    font-size: 2.2em;
+  }
+  .highscores-list {
+    text-align: left;
+    padding-left: 1.2em;
+    font-size: 1.4em;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+
+    li.first-place {
+      background: linear-gradient(90deg, #ffe066 60%, #fffbe6 100%);
+      color: #b8860b;
+      font-weight: bold;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 1.25em;
+    }
+    li.second-place {
+      background: linear-gradient(90deg, #e0e0e0 60%, #f8f8f8 100%);
+      color: #888;
+      font-weight: bold;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 1.15em;
+    }
+    li.third-place {
+      background: linear-gradient(90deg, #ffd6a0 60%, #fff2e0 100%);
+      color: #b87333;
+      font-weight: bold;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 1.1em;
+    }
+    .medal {
+      margin-right: 8px;
+      font-size: 1.2em;
+      vertical-align: middle;
+    }
+  }
+  .highscores-content .close {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 2em;
+    color: #888;
+    cursor: pointer;
+  }
+  @media (max-width: 500px) {
+    .highscores-content {
+      padding: 12px 4vw;
+      font-size: 1em;
+    }
+    .highscores-btn {
+      font-size: 2vh;
+      padding: 8px;
+    }
   }
 }
 
