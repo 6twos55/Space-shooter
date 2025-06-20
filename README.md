@@ -1,4 +1,4 @@
-# Space Shooter
+# Space Shooter (DESKTOP/LAPTOP GAME)
 
 Shoot falling rocks before they evade you!
 
