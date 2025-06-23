@@ -36,7 +36,7 @@ body {
   /* ITEMS */
   .rocks {
     position: absolute;
-    top: -50;
+    top: -65;
     left: 5;
     width: 5vw;
     height: 7vh;

@@ -79,7 +79,7 @@ again.addEventListener("click", (e) => {
     isGameOver &&
     again.textContent.trim().toUpperCase() === "PLAY AGAIN"
   ) {
-    window.location.reload();
+    restartGame();
   }
 });
 
@@ -295,7 +295,7 @@ function updateTimer() {
 
 info.addEventListener("click", (e) => {
   if (!isGameOver && info.innerHTML.trim().toUpperCase() === "RESTART") {
-    resetGame();
+    restartGame();
   }
 });
 
@@ -372,7 +372,7 @@ highscoresPopup.addEventListener("click", (e) => {
   if (e.target === highscoresPopup) highscoresPopup.style.display = "none";
 });
 
-function resetGame() {
+function restartGame() {
   clearInterval(makeRocks);
   clearInterval(moveRocks);
   clearInterval(gameTimer);
