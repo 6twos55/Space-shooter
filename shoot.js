@@ -20,10 +20,11 @@ let lastShootTime = 0;
 let rockFallSpeed = 40;
 let rockSpawnInterval = 1000;
 let bulletCooldown = 500;
-let gameStartTime = Date.now();
+let gameStartTime;
 let gameTimer;
 let isGameOver = false;
 let scoreSaved = false;
+let gameStarted = false;
 
 const keys = {
   ArrowLeft: false,
@@ -42,7 +43,7 @@ function isDesktopScreen() {
 }
 
 function startBgMusicOnce() {
-  if (!bgStarted && isDesktopScreen()) {
+  if (!bgStarted && !isGameOver && gameStarted && isDesktopScreen()) {
     bgStarted = true;
     bgMusic.play();
   }
@@ -64,11 +65,87 @@ window.addEventListener("DOMContentLoaded", () => {
   shooter.style.position = "absolute";
   shooter.style.bottom = "2vh";
   shooter.style.left = "1vw";
-
   updateInfoCursor();
+
+  document.querySelector(".count").innerHTML = "0";
 });
 
+let makeRocks, moveRocks;
+
+again.addEventListener("click", (e) => {
+  if (!gameStarted && again.textContent.trim().toUpperCase() === "PLAY") {
+    startGame();
+  } else if (
+    isGameOver &&
+    again.textContent.trim().toUpperCase() === "PLAY AGAIN"
+  ) {
+    window.location.reload();
+  }
+});
+
+function startGame() {
+  gameStarted = true;
+  isGameOver = false;
+  scoreSaved = false;
+  document.querySelector(".count").innerHTML = "0";
+  gameStartTime = Date.now();
+
+  again.innerHTML = `<span class="timer">Time: 0:00</span>`;
+
+  info.innerHTML = "RESTART";
+  updateInfoCursor();
+
+  gameTimer = setInterval(updateTimer, 1000);
+
+  makeRocks = setInterval(() => {
+    let rock = document.createElement("div");
+    rock.classList.add("rocks");
+    let maxWidth = window.innerWidth * 0.75;
+    rock.style.left = Math.floor(Math.random() * (maxWidth - 100)) + "px";
+    space.appendChild(rock);
+  }, rockSpawnInterval);
+
+  moveRocks = setInterval(() => {
+    let rocks = document.querySelectorAll(".rocks");
+    let gameOverPosition = window.innerHeight - 100;
+
+    if (rocks != undefined) {
+      for (let i = 0; i < rocks.length; i++) {
+        let rock = rocks[i];
+        let rockTop = parseInt(
+          window.getComputedStyle(rock).getPropertyValue("top")
+        );
+        rock.style.top = rockTop + rockFallSpeed + "px";
+
+        if (rockTop >= gameOverPosition) {
+          clearInterval(makeRocks);
+          clearInterval(moveRocks);
+          clearInterval(gameTimer);
+          isGameOver = true;
+
+          rocks.forEach((rock) => {
+            rock.style.display = "none";
+          });
+
+          if (!scoreSaved) {
+            const score = parseInt(document.querySelector(".count").innerHTML);
+            const elapsed = Date.now() - gameStartTime;
+            saveHighScore(score, elapsed);
+            scoreSaved = true;
+          }
+
+          info.innerHTML = "GAME OVER";
+          updateInfoCursor();
+          again.innerHTML = "PLAY AGAIN";
+        }
+      }
+    }
+  }, 300);
+}
+
 function shootBullet() {
+  if (!gameStarted || isGameOver) return;
+
   const currentTime = Date.now();
   if (currentTime - lastShootTime < bulletCooldown) return;
 
@@ -132,6 +209,7 @@ function shootBullet() {
 }
 
 window.addEventListener("keydown", (e) => {
+  if (!gameStarted || isGameOver) return;
   if (keys.hasOwnProperty(e.key)) {
     keys[e.key] = true;
   }
@@ -140,15 +218,15 @@ window.addEventListener("keydown", (e) => {
     case "ArrowUp":
     case "w":
     case "Enter":
-      if (!isGameOver) shootBullet();
+      shootBullet();
       break;
     default:
   }
 });
 
-// mouse click shooting
 space.addEventListener("click", () => {
-  if (!isGameOver) shootBullet();
+  if (!gameStarted || isGameOver) return;
+  shootBullet();
 });
 
 window.addEventListener("keyup", (e) => {
@@ -158,15 +236,20 @@ window.addEventListener("keyup", (e) => {
 });
 
 function gameLoop() {
+  if (!gameStarted || isGameOver) {
+    requestAnimationFrame(gameLoop);
+    return;
+  }
+
   let left = parseInt(
     window.getComputedStyle(shooter).getPropertyValue("left")
   );
   let maxWidth = window.innerWidth * 0.75;
 
-  if ((keys.ArrowLeft || keys.a) && left > 2 && !isGameOver) {
+  if ((keys.ArrowLeft || keys.a) && left > 2) {
     shooter.style.left = left - moveBy + "px";
   }
-  if ((keys.ArrowRight || keys.d) && left < maxWidth - 80 && !isGameOver) {
+  if ((keys.ArrowRight || keys.d) && left < maxWidth - 80) {
     shooter.style.left = left + moveBy + "px";
   }
 
@@ -175,54 +258,8 @@ function gameLoop() {
 
 gameLoop();
 
-let makeRocks = setInterval(() => {
-  let rock = document.createElement("div");
-  rock.classList.add("rocks");
-  let maxWidth = window.innerWidth * 0.75;
-  rock.style.left = Math.floor(Math.random() * (maxWidth - 100)) + "px";
-  space.appendChild(rock);
-}, rockSpawnInterval);
-
-let moveRocks = setInterval(() => {
-  let rocks = document.querySelectorAll(".rocks");
-  let gameOverPosition = window.innerHeight - 100;
-
-  if (rocks != undefined) {
-    for (let i = 0; i < rocks.length; i++) {
-      let rock = rocks[i];
-      let rockTop = parseInt(
-        window.getComputedStyle(rock).getPropertyValue("top")
-      );
-      rock.style.top = rockTop + rockFallSpeed + "px";
-
-      if (rockTop >= gameOverPosition) {
-        clearInterval(makeRocks);
-        clearInterval(moveRocks);
-        clearInterval(gameTimer);
-        isGameOver = true;
-
-        rocks.forEach((rock) => {
-          rock.style.display = "none";
-        });
-
-        if (!scoreSaved) {
-          const score = parseInt(document.querySelector(".count").innerHTML);
-          const elapsed = Date.now() - gameStartTime;
-          saveHighScore(score, elapsed);
-          scoreSaved = true;
-        }
-
-        info.innerHTML = "GAME OVER";
-        updateInfoCursor();
-        const againDiv = document.querySelector(".again");
-        againDiv.innerHTML = "PLAY AGAIN";
-      }
-    }
-  }
-}, 300);
-
 function updateTimer() {
-  if (!isGameOver) {
+  if (!isGameOver && gameStarted) {
     const timerElement = document.querySelector(".timer");
     const elapsed = Date.now() - gameStartTime;
     const seconds = Math.floor(elapsed / 1000);
@@ -256,17 +293,9 @@ function updateTimer() {
   }
 }
 
-gameTimer = setInterval(updateTimer, 1000);
-
-again.addEventListener("click", (e) => {
-  if (isGameOver && again.innerHTML.trim().toUpperCase() === "PLAY AGAIN") {
-    window.location.reload();
-  }
-});
-
 info.addEventListener("click", (e) => {
   if (!isGameOver && info.innerHTML.trim().toUpperCase() === "RESTART") {
-    window.location.reload();
+    resetGame();
   }
 });
 
@@ -292,7 +321,6 @@ function saveHighScore(score, time) {
   scores = scores.slice(0, 10); // Keeping only top 10
   localStorage.setItem("spaceShooterHighScores", JSON.stringify(scores));
 }
-
 
 const highscoresBtn = document.querySelector(".highscores-btn");
 const highscoresPopup = document.querySelector(".highscores-popup");
@@ -343,3 +371,25 @@ highscoresClose.addEventListener("click", () => {
 highscoresPopup.addEventListener("click", (e) => {
   if (e.target === highscoresPopup) highscoresPopup.style.display = "none";
 });
+
+function resetGame() {
+  clearInterval(makeRocks);
+  clearInterval(moveRocks);
+  clearInterval(gameTimer);
+
+  document.querySelectorAll(".rocks").forEach((r) => r.remove());
+  document.querySelectorAll(".bullets").forEach((b) => b.remove());
+
+  isGameOver = false;
+  gameStarted = false;
+  scoreSaved = false;
+  rockFallSpeed = 40;
+  rockSpawnInterval = 1000;
+  bulletCooldown = 500;
+  lastShootTime = 0;
+  document.querySelector(".count").innerHTML = "0";
+  shooter.style.left = "1vw";
+
+  updateInfoCursor();
+  startGame();
+}
