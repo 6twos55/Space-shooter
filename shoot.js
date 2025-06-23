@@ -23,7 +23,7 @@ let bulletCooldown = 500;
 let gameStartTime = Date.now();
 let gameTimer;
 let isGameOver = false;
-let scoreSaved = false; // Add this at the top with your other state variables
+let scoreSaved = false;
 
 const keys = {
   ArrowLeft: false,
@@ -37,12 +37,24 @@ const keys = {
 
 let bgStarted = false;
 
+function isDesktopScreen() {
+  return window.innerWidth > 1024 && window.innerHeight > 700;
+}
+
 function startBgMusicOnce() {
-  if (!bgStarted) {
+  if (!bgStarted && isDesktopScreen()) {
     bgStarted = true;
     bgMusic.play();
   }
 }
+
+window.addEventListener("resize", () => {
+  if (!isDesktopScreen() && !bgMusic.paused) {
+    bgMusic.pause();
+    bgMusic.currentTime = 0;
+    bgStarted = false;
+  }
+});
 
 window.addEventListener("keydown", startBgMusicOnce, { once: true });
 window.addEventListener("click", startBgMusicOnce, { once: true });
@@ -134,7 +146,7 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-// Add mouse click shooting
+// mouse click shooting
 space.addEventListener("click", () => {
   if (!isGameOver) shootBullet();
 });
@@ -145,7 +157,6 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
-// Add a movement loop
 function gameLoop() {
   let left = parseInt(
     window.getComputedStyle(shooter).getPropertyValue("left")
@@ -162,11 +173,9 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// Start the movement loop
 gameLoop();
 
 let makeRocks = setInterval(() => {
-  // Adjust rock spawn positions
   let rock = document.createElement("div");
   rock.classList.add("rocks");
   let maxWidth = window.innerWidth * 0.75;
@@ -196,7 +205,6 @@ let moveRocks = setInterval(() => {
           rock.style.display = "none";
         });
 
-        // Save score only once
         if (!scoreSaved) {
           const score = parseInt(document.querySelector(".count").innerHTML);
           const elapsed = Date.now() - gameStartTime;
@@ -224,7 +232,7 @@ function updateTimer() {
       .toString()
       .padStart(2, "0")}`;
 
-    // Increase difficulty at 20s, 40s, 1 min 30s, 2 mins and 3 mins
+    // Increasing difficulty at 20s, 40s, 1 min 30s, 2 mins and 3 mins
     if (seconds === 20) {
       rockFallSpeed = 60;
       rockSpawnInterval = 800;
@@ -248,7 +256,6 @@ function updateTimer() {
   }
 }
 
-// Start the timer
 gameTimer = setInterval(updateTimer, 1000);
 
 again.addEventListener("click", (e) => {
@@ -276,17 +283,17 @@ function saveHighScore(score, time) {
   let scores = JSON.parse(
     localStorage.getItem("spaceShooterHighScores") || "[]"
   );
-  // Prevent exact duplicates (same score and time)
+
   if (!scores.some((entry) => entry.score === score && entry.time === time)) {
     scores.push({ score, time });
   }
-  // Sort by score descending, then by time ascending (shorter time is better if scores are equal)
+  // Sorting by score descending, and by time ascending (shorter time is better if scores are equal)
   scores.sort((a, b) => b.score - a.score || a.time - b.time);
-  scores = scores.slice(0, 10); // Keep only top 10
+  scores = scores.slice(0, 10); // Keeping only top 10
   localStorage.setItem("spaceShooterHighScores", JSON.stringify(scores));
 }
 
-// High Scores Popup Logic
+
 const highscoresBtn = document.querySelector(".highscores-btn");
 const highscoresPopup = document.querySelector(".highscores-popup");
 const highscoresList = document.querySelector(".highscores-list");
@@ -302,12 +309,12 @@ function showHighScores() {
       "<p style='text-align: center;'>No scores yet!</p>";
   } else {
     scores.forEach((entry, idx) => {
-      // Format time as m:ss
+      // Showing time as m:ss
       const totalSeconds = Math.floor(entry.time / 1000);
       const min = Math.floor(totalSeconds / 60);
       const sec = (totalSeconds % 60).toString().padStart(2, "0");
 
-      // Add unique styles for 1st, 2nd, 3rd
+      // Unique styling for 1st, 2nd and 3rd
       let medal = "";
       let cls = "";
       if (idx === 0) {
