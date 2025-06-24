@@ -68,6 +68,9 @@ window.addEventListener("DOMContentLoaded", () => {
   updateInfoCursor();
 
   document.querySelector(".count").innerHTML = "0";
+
+  // logging the screen's height and width
+  console.log("w: " + window.innerWidth, "h: " + window.innerHeight);
 });
 
 let makeRocks, moveRocks;
@@ -269,7 +272,7 @@ function updateTimer() {
       .toString()
       .padStart(2, "0")}`;
 
-    // Increasing difficulty at 20s, 40s, 1 min 30s, 2 mins and 3 mins
+    // Increasing difficulty at 20s, 40s, 1 min 30s, 2 mins and 3 mins and 40 mins
     if (seconds === 20) {
       rockFallSpeed = 60;
       rockSpawnInterval = 800;
@@ -287,8 +290,11 @@ function updateTimer() {
       rockSpawnInterval = 50;
       bulletCooldown = 250;
     } else if (seconds === 210) {
-      rockFallSpeed = 145;
+      rockFallSpeed = 150;
       rockSpawnInterval = 5;
+    } else if(seconds = 270) {
+      rockFallSpeed = 170;
+      rockSpawnInterval = 1;
     }
   }
 }
