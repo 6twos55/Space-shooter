@@ -239,7 +239,7 @@ body {
   opacity: 0.2;
 }
 
-@media (max-width: 1000px), (max-height: 650px) {
+@media (max-width: 700px) {
   .cover,
   .space,
   .stats {
